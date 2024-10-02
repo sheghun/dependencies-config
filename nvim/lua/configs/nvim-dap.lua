@@ -12,6 +12,9 @@ dap.listeners.before.event_exited["dapui_config"] = function()
   require("dapui").close()
 end
 
+vim.api.nvim_set_var('dap_log_level', 'DEBUG')
+vim.api.nvim_set_var('dap_log', true)
+
 vim.fn.sign_define('DapBreakpoint', {text='⭕', texthl='DapBreakpoint', linehl='', numhl=''})
 vim.fn.sign_define('DapBreakpointCondition', {text='♦️', texthl='DapBreakpointCondition', linehl='', numhl=''})
 vim.fn.sign_define('DapBreakpointRejected', {text='❌', texthl='DapBreakpointRejected', linehl='', numhl=''})
@@ -31,7 +34,5 @@ vim.api.nvim_set_keymap('n', '<leader>du', '<Cmd>lua require"dapui".toggle()<CR>
 -- Keybinding to hover and evaluate expression
 vim.api.nvim_set_keymap('n', '<leader>dh', '<cmd>lua require("dap.ui.widgets").hover()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>dt', '<cmd>lua require("dap-go").debug_test()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>dc', '<cmd>lua require("dap-go").debug_test()<CR>', { noremap = true, silent = true })
-
 -- Keybinding to open a sidebar with expression evaluation
 vim.api.nvim_set_keymap('n', '<leader>df', '<cmd>lua require("dap.ui.widgets").centered_float(require("dap.ui.widgets").frames)<CR>', { noremap = true, silent = true })

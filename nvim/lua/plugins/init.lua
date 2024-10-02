@@ -9,7 +9,7 @@ return {
 
   {
     "neovim/nvim-lspconfig",
-    pin = true,
+    version = "v1.0.0",
     config = function()
       require("nvchad.configs.lspconfig").defaults()
       require "configs.lspconfig"
@@ -59,7 +59,6 @@ return {
 
   {
     "nvimtools/none-ls.nvim",
-    pin = true,
     event = "BufWritePre", -- uncomment for format on save
     dependencies = {
       "nvimtools/none-ls-extras.nvim",
@@ -117,8 +116,20 @@ return {
     requires = "nvim-lua/plenary.nvim",
     config = function()
       require("diffview").setup {
-        -- Add any specific configurations you want here
-        enhanced_diff_hl = true, -- Example config: enhanced diff highlighting
+        enhanced_diff_hl = true,
+        view = {
+          merge_tool = {
+            disable_diagnostics = false,
+          },
+        },
+        hooks = {
+          view_opened = function()
+            vim.cmd [[highlight DiffAdd guibg=#266b21 guifg=NONE]]
+            vim.cmd [[highlight DiffChange guibg=#21476b guifg=NONE]]
+            vim.cmd [[highlight DiffDelete guibg=#700202 guifg=NONE]]
+            vim.cmd [[highlight DiffText guibg=#1a1078 guifg=NONE]]
+          end,
+        },
       }
     end,
     cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles" }, -- Load plugin when these commands are used
@@ -134,7 +145,7 @@ return {
       -- add any opts here
       provider = "openai",
       openai = {
-        model = "gpt-4o-mini",
+        model = "gpt-4o",
       },
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
