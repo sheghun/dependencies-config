@@ -11,3 +11,5 @@ o.foldmethod='indent'
 o.foldenable=true
 o.foldlevelstart=99
 o.foldlevel=0
+o.autoread=true
+o.swapfile=false
