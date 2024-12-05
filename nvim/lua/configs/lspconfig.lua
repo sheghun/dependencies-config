@@ -48,7 +48,18 @@ lspconfig.sqlls.setup {
   on_init = on_init,
   capabilities = capabilities,
   cmd = { "sql-language-server", "up", "--method", "stdio" },
-  filetypes = {"sql", "mysql"}
+  filetypes = { "sql", "mysql" },
+}
+
+lspconfig.prismals.setup {
+  cmd = { "prisma-language-server", "--stdio" },
+  filetypes = { "prisma" },
+  root_dir = lspconfig.util.root_pattern "schema.prisma",
+  settings = {
+    prisma = {
+      prismaFmtBinPath = "prisma", -- Ensure it's using the correct formatter
+    },
+  },
 }
 
 -- lspconfig.golangci_lint_ls.setup {

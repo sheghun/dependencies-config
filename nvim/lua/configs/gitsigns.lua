@@ -10,4 +10,7 @@ local options = {
   },
 }
 
+
+vim.api.nvim_set_keymap('n', '<leader> gh', '<cmd>Gitsigns next_hunk<CR>', { noremap = true, desc = 'Go to next git change', silent = true })
+
 return options

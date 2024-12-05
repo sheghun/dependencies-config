@@ -34,7 +34,6 @@ return {
         "golines",
         "gofumpt",
         "refactoring",
-        "prettier",
         "eslint",
       },
     },
