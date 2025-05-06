@@ -80,6 +80,7 @@ return {
     end,
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "git")
+      ---@diagnostic disable-next-line: different-requires
       require("gitsigns").setup(opts)
     end,
   },
@@ -105,6 +106,7 @@ return {
       "leoluz/nvim-dap-go", -- Specific for Go
       "rcarriga/nvim-dap-ui", -- Optional UI for DAP
       "nvim-neotest/nvim-nio",
+      "mxsdev/nvim-dap-vscode-js", -- For JS/TS debugging
     },
     config = function()
       require "configs.nvim-dap"
@@ -142,9 +144,14 @@ return {
     version = "v0.0.2", -- set this if you want to always pull the latest change
     opts = {
       -- add any opts here
-      provider = "openai",
-      openai = {
-        model = "gpt-4o",
+      -- provider = "openai",
+      -- openai = {
+      --   model = "gpt-4o",
+      -- },
+      -- auto_suggestions_provider = "claude", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
+      provider = "claude", -- Recommend using Claude
+      claude = {
+        model = "claude-3-5-sonnet-20241022",
       },
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
@@ -183,5 +190,71 @@ return {
         ft = { "markdown", "Avante" },
       },
     },
+  },
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    lazy = false,
+    dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+    config = function()
+      local harpoon = require "harpoon"
+      harpoon.setup()
+
+      require("telescope").load_extension "harpoon"
+
+      vim.keymap.set("n", "<leader>hm", function()
+        require("telescope").extensions.harpoon.marks()
+      end, { desc = "Open harpoon window" })
+
+      vim.keymap.set("n", "<leader>ha", function()
+        harpoon:list():add()
+      end)
+      -- vim.keymap.set("n", "<leader>hm", function()
+      --   harpoon.ui:toggle_quick_menu(harpoon:list())
+      -- end)
+      vim.keymap.set("n", "<leader>h1", function()
+        harpoon:list():select(1)
+      end)
+      vim.keymap.set("n", "<leader>h2", function()
+        harpoon:list():select(2)
+      end)
+      vim.keymap.set("n", "<leader>h3", function()
+        harpoon:list():select(3)
+      end)
+      vim.keymap.set("n", "<leader>h4", function()
+        harpoon:list():select(4)
+      end)
+    end,
+  },
+  {
+    "nvim-telescope/telescope-live-grep-args.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+  },
+
+  {
+    "kristijanhusak/vim-dadbod-ui",
+    dependencies = {
+      { "tpope/vim-dadbod", lazy = true },
+      { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true }, -- Optional
+    },
+    cmd = {
+      "DBUI",
+      "DBUIToggle",
+      "DBUIAddConnection",
+      "DBUIFindBuffer",
+    },
+    init = function()
+      -- Your DBUI configuration
+      vim.g.db_ui_use_nerd_fonts = 1
+    end,
+    config = function()
+      -- Disable auto-save for DBUI buffers
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "dbui", "dbout", "sql" },
+        callback = function()
+          vim.b.auto_save = false
+        end,
+      })
+    end,
   },
 }
