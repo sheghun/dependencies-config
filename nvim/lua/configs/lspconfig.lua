@@ -62,6 +62,22 @@ lspconfig.prismals.setup {
   },
 }
 
+-- BasedPyright (Python LSP)
+lspconfig.basedpyright.setup {
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+  cmd = { "basedpyright-langserver", "--stdio" },
+  filetypes = { "python" },
+  root_dir = lspconfig.util.find_git_ancestor,
+  settings = {
+    basedpyright = {
+      typeCheckingMode = "standard",
+      reportMissingImports = true,
+    },
+  },
+}
+
 -- lspconfig.golangci_lint_ls.setup {
 --   on_attach = on_attach,
 --   on_init = on_init,

@@ -3,8 +3,7 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 local options = {
   timeout = 10000,
-  sources = {
-    null_ls.builtins.diagnostics.golangci_lint.with {
+  sources = { null_ls.builtins.diagnostics.golangci_lint.with {
       extra_args = { "--fix=true" },
     },
     null_ls.builtins.code_actions.gomodifytags,
@@ -20,6 +19,9 @@ local options = {
     --   command = "npx", -- Use Prisma formatter from node_modules
     --   args = { "prisma", "format" },
     -- },
+    null_ls.builtins.formatting.black, -- python formatter
+    require "none-ls.diagnostics.ruff", -- python linter
+    -- require "none-ls.code_actions.ruff", -- python code actions
     require "none-ls.code_actions.eslint",
     require "none-ls.diagnostics.eslint",
     -- require "none-ls.formatting.eslint",
