@@ -14,4 +14,5 @@ you need to download and set up nerdfonts for your terminal for neovim to work c
 #
 #
 for tmux:
+
 you need to create a symlink to link `~/.tmux.conf` to `~/.config/tmux/.tmux.conf`
