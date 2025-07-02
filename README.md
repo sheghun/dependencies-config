@@ -1,5 +1,7 @@
 this is my config for tmux, neovim, and alacritty. clone this repo into `~/.config`.
 
+you need to first of all download anyone of these tools you want to use.
+
 ```console
 cd projects
 nvim .
