@@ -9,7 +9,10 @@ return {
 
   {
     "neovim/nvim-lspconfig",
-    version = "v1.0.0",
+    version = "v2.5.0",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+    },
     config = function()
       require("nvchad.configs.lspconfig").defaults()
       require "configs.lspconfig"
@@ -209,7 +212,7 @@ return {
     opts = {
       -- add any opts here
       -- for example
-      provider = "ollama",
+      provider = "claude",
       providers = {
         claude = {
           endpoint = "https://api.anthropic.com",
@@ -222,7 +225,8 @@ return {
         },
         ollama = {
           endpoint = "http://localhost:11434",
-          model = "deepseek-r1:14b",
+          -- model = "deepseek-r1:14b",
+          model = "qwen2.5-coder:latest",
         },
         moonshot = {
           endpoint = "https://api.moonshot.ai/v1",
@@ -236,18 +240,18 @@ return {
       },
     },
 
-    disabled_tools = {
-      "list_files",
-      "search_files",
-      "read_file",
-      "create_file",
-      "rename_file",
-      "delete_file",
-      "create_dir",
-      "rename_dir",
-      "delete_dir",
-      "bash",
-    },
+    -- disabled_tools = {
+    --   "list_files",
+    --   "search_files",
+    --   "read_file",
+    --   "create_file",
+    --   "rename_file",
+    --   "delete_file",
+    --   "create_dir",
+    --   "rename_dir",
+    --   "delete_dir",
+    --   "bash",
+    -- },
 
     -- File selector configuration
     file_selector = {

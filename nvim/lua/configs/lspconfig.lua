@@ -78,6 +78,23 @@ lspconfig.basedpyright.setup {
   },
 }
 
+lspconfig.clangd.setup {
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+  cmd = {
+    "clangd",
+    "--background-index",
+    "--clang-tidy",
+    "--header-insertion=iwyu",
+    "--completion-style=detailed",
+    "--function-arg-placeholders=true",
+  },
+  init_options = {
+    fallbackFlags = { "-std=c++20" },
+  },
+}
+
 -- lspconfig.golangci_lint_ls.setup {
 --   on_attach = on_attach,
 --   on_init = on_init,
