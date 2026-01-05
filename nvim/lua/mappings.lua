@@ -6,6 +6,7 @@ local map = vim.keymap.set
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
+map("t", "jk", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 map("n", "<leader>gc", "<cmd>Telescope git_commits<CR>")
 map("n", "<leader>gb", "<cmd>Telescope git_bcommits<CR>")

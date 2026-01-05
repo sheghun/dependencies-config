@@ -143,121 +143,121 @@ return {
     module = "diffview", -- Load plugin when the diffview module is accessed
   },
 
-  {
-    "yetone/avante.nvim",
-    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    -- ⚠️ must add this setting! ! !
-    build = function()
-      -- conditionally use the correct build system for the current OS
-      if vim.fn.has "win32" == 1 then
-        return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-      else
-        return "make"
-      end
-    end,
-    event = "VeryLazy",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      --- The below dependencies are optional,
-      "echasnovski/mini.pick", -- for file_selector provider mini.pick
-      "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-      "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-      "ibhagwan/fzf-lua", -- for file_selector provider fzf
-      "stevearc/dressing.nvim", -- for input provider dressing
-      "folke/snacks.nvim", -- for input provider snacks
-      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-      "zbirenbaum/copilot.lua", -- for providers='copilot'
-      "ravitemer/mcphub.nvim",
-      {
-        -- support for image pasting
-        "HakonHarnes/img-clip.nvim",
-        event = "VeryLazy",
-        opts = {
-          -- recommended settings
-          default = {
-            embed_image_as_base64 = false,
-            prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
-            },
-            -- required for Windows users
-            use_absolute_path = true,
-          },
-        },
-      },
-      {
-        -- Make sure to set this up properly if you have lazy=true
-        "MeanderingProgrammer/render-markdown.nvim",
-        opts = {
-          file_types = { "markdown", "Avante" },
-        },
-        ft = { "markdown", "Avante" },
-      },
-    },
-
-    system_prompt = function()
-      local hub = require("mcphub").get_hub_instance()
-      return hub and hub:get_active_servers_prompt() or ""
-    end,
-    -- Using function prevents requiring mcphub before it's loaded
-    custom_tools = function()
-      return {
-        require("mcphub.extensions.avante").mcp_tool(),
-      }
-    end,
-    version = false, -- Never set this value to "*"! Never!
-    ---@module 'avante'
-    ---@type avante.Config
-    opts = {
-      -- add any opts here
-      -- for example
-      provider = "claude",
-      providers = {
-        claude = {
-          endpoint = "https://api.anthropic.com",
-          model = "claude-3-7-sonnet-20250219",
-          timeout = 30000, -- Timeout in milliseconds
-          extra_request_body = {
-            temperature = 0.75,
-            max_tokens = 20480,
-          },
-        },
-        ollama = {
-          endpoint = "http://localhost:11434",
-          -- model = "deepseek-r1:14b",
-          model = "qwen2.5-coder:latest",
-        },
-        moonshot = {
-          endpoint = "https://api.moonshot.ai/v1",
-          model = "kimi-k2-0711-preview",
-          timeout = 30000, -- Timeout in milliseconds
-          extra_request_body = {
-            temperature = 0.75,
-            max_tokens = 32768,
-          },
-        },
-      },
-    },
-
-    -- disabled_tools = {
-    --   "list_files",
-    --   "search_files",
-    --   "read_file",
-    --   "create_file",
-    --   "rename_file",
-    --   "delete_file",
-    --   "create_dir",
-    --   "rename_dir",
-    --   "delete_dir",
-    --   "bash",
-    -- },
-
-    -- File selector configuration
-    file_selector = {
-      provider = "telescope",
-    },
-  },
+  -- {
+  --   "yetone/avante.nvim",
+  --   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+  --   -- ⚠️ must add this setting! ! !
+  --   build = function()
+  --     -- conditionally use the correct build system for the current OS
+  --     if vim.fn.has "win32" == 1 then
+  --       return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+  --     else
+  --       return "make"
+  --     end
+  --   end,
+  --   event = "VeryLazy",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "MunifTanjim/nui.nvim",
+  --     --- The below dependencies are optional,
+  --     "echasnovski/mini.pick", -- for file_selector provider mini.pick
+  --     "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+  --     "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+  --     "ibhagwan/fzf-lua", -- for file_selector provider fzf
+  --     "stevearc/dressing.nvim", -- for input provider dressing
+  --     "folke/snacks.nvim", -- for input provider snacks
+  --     "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+  --     "zbirenbaum/copilot.lua", -- for providers='copilot'
+  --     "ravitemer/mcphub.nvim",
+  --     {
+  --       -- support for image pasting
+  --       "HakonHarnes/img-clip.nvim",
+  --       event = "VeryLazy",
+  --       opts = {
+  --         -- recommended settings
+  --         default = {
+  --           embed_image_as_base64 = false,
+  --           prompt_for_file_name = false,
+  --           drag_and_drop = {
+  --             insert_mode = true,
+  --           },
+  --           -- required for Windows users
+  --           use_absolute_path = true,
+  --         },
+  --       },
+  --     },
+  --     {
+  --       -- Make sure to set this up properly if you have lazy=true
+  --       "MeanderingProgrammer/render-markdown.nvim",
+  --       opts = {
+  --         file_types = { "markdown", "Avante" },
+  --       },
+  --       ft = { "markdown", "Avante" },
+  --     },
+  --   },
+  --
+  --   system_prompt = function()
+  --     local hub = require("mcphub").get_hub_instance()
+  --     return hub and hub:get_active_servers_prompt() or ""
+  --   end,
+  --   -- Using function prevents requiring mcphub before it's loaded
+  --   custom_tools = function()
+  --     return {
+  --       require("mcphub.extensions.avante").mcp_tool(),
+  --     }
+  --   end,
+  --   version = false, -- Never set this value to "*"! Never!
+  --   ---@module 'avante'
+  --   ---@type avante.Config
+  --   opts = {
+  --     -- add any opts here
+  --     -- for example
+  --     provider = "claude",
+  --     providers = {
+  --       claude = {
+  --         endpoint = "https://api.anthropic.com",
+  --         model = "claude-3-7-sonnet-20250219",
+  --         timeout = 30000, -- Timeout in milliseconds
+  --         extra_request_body = {
+  --           temperature = 0.75,
+  --           max_tokens = 20480,
+  --         },
+  --       },
+  --       ollama = {
+  --         endpoint = "http://localhost:11434",
+  --         -- model = "deepseek-r1:14b",
+  --         model = "qwen2.5-coder:latest",
+  --       },
+  --       moonshot = {
+  --         endpoint = "https://api.moonshot.ai/v1",
+  --         model = "kimi-k2-0711-preview",
+  --         timeout = 30000, -- Timeout in milliseconds
+  --         extra_request_body = {
+  --           temperature = 0.75,
+  --           max_tokens = 32768,
+  --         },
+  --       },
+  --     },
+  --   },
+  --
+  --   -- disabled_tools = {
+  --   --   "list_files",
+  --   --   "search_files",
+  --   --   "read_file",
+  --   --   "create_file",
+  --   --   "rename_file",
+  --   --   "delete_file",
+  --   --   "create_dir",
+  --   --   "rename_dir",
+  --   --   "delete_dir",
+  --   --   "bash",
+  --   -- },
+  --
+  --   -- File selector configuration
+  --   file_selector = {
+  --     provider = "telescope",
+  --   },
+  -- },
 
   {
     "ravitemer/mcphub.nvim",
@@ -336,5 +336,26 @@ return {
         end,
       })
     end,
+  },
+
+  {
+    "coder/claudecode.nvim",
+    dependencies = {
+      "folke/snacks.nvim",
+    },
+    opts = {
+      terminal_cmd = "/Users/segunoladiran/.local/bin/claude",
+    },
+    keys = {
+      { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
+      { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
+      { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
+      { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
+      { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add buffer to Claude" },
+      { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
+      { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
+      { "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude conversation" },
+      { "<leader>ao", "<cmd>ClaudeCode --continue<cr>", desc = "Continue last Claude conversation" },
+    },
   },
 }
