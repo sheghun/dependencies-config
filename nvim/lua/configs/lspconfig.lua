@@ -101,3 +101,13 @@ lspconfig.clangd.setup {
 --   capabilities = capabilities,
 --   filetypes = { "go", "gomod" },
 -- }
+
+-- Solidity Language Server (Nomic Foundation)
+lspconfig.solidity_ls_nomicfoundation.setup {
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
+  cmd = { "nomicfoundation-solidity-language-server", "--stdio" },
+  filetypes = { "solidity" },
+  root_dir = lspconfig.util.root_pattern("foundry.toml", "hardhat.config.js", "hardhat.config.ts", "package.json", ".git"),
+}

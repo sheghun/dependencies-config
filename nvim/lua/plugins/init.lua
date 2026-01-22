@@ -41,6 +41,7 @@ return {
         "basedpyright",
         "black",
         "sqlls",
+        "solidity-ls",
       },
     },
   },
@@ -58,6 +59,7 @@ return {
         "gosum",
         "gomod",
         "gowork",
+        "solidity",
       },
     },
   },
@@ -339,12 +341,23 @@ return {
   },
 
   {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown" },
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
+    opts = {},
+  },
+
+  {
     "coder/claudecode.nvim",
     dependencies = {
       "folke/snacks.nvim",
     },
     opts = {
       terminal_cmd = "/Users/segunoladiran/.local/bin/claude",
+      split_width_percentage = 0.25,
     },
     keys = {
       { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },

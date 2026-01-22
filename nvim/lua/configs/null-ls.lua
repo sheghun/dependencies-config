@@ -65,6 +65,10 @@ local options = {
   sources = {
     null_ls.builtins.diagnostics.golangci_lint.with {
       extra_args = { "--fix=true" },
+      diagnostics_postprocess = function(diagnostic)
+        diagnostic.message = "[golangci:" .. (diagnostic.code or "lint") .. "] " .. diagnostic.message
+        diagnostic.code = nil -- Clear code to avoid duplication
+      end,
     },
     null_ls.builtins.code_actions.gomodifytags,
     null_ls.builtins.code_actions.impl,
@@ -85,6 +89,7 @@ local options = {
     --   args = { "prisma", "format" },
     -- },
     null_ls.builtins.formatting.black, -- python formatter
+    null_ls.builtins.formatting.forge_fmt, -- solidity formatter (requires Foundry)
     require "none-ls.diagnostics.ruff", -- python linter
     -- require "none-ls.code_actions.ruff", -- python code actions
     require "none-ls.code_actions.eslint",
