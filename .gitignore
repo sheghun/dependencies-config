@@ -1,11 +1,6 @@
-*
-!.gitignore
-!nvim
-!nvim/**/*
-!wezterm
-!wezterm/**/*
-!tmux
-!alacritty
-!alacritty/**/*
-!tmux/**/*
-!mcphub
+jgit
+simple-update-notifier
+vscode-js-debug
+yarn
+awscliv2.pkg
+

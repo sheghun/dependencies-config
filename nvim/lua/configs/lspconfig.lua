@@ -111,3 +111,6 @@ lspconfig.solidity_ls_nomicfoundation.setup {
   filetypes = { "solidity" },
   root_dir = lspconfig.util.root_pattern("foundry.toml", "hardhat.config.js", "hardhat.config.ts", "package.json", ".git"),
 }
+
+-- Rust Analyzer is now handled by rustaceanvim plugin
+-- See ~/.config/nvim/after/ftplugin/rust.lua for keymaps

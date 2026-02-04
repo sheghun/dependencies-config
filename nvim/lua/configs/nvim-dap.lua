@@ -1,6 +1,48 @@
 require("dapui").setup()
 require("dap-go").setup()
 
+-- Rust/CodeLLDB debugging setup
+local dap = require("dap")
+
+local function setup_codelldb()
+  local ok, mason_registry = pcall(require, "mason-registry")
+  if not ok then return end
+
+  local has_pkg, codelldb = pcall(mason_registry.get_package, "codelldb")
+  if not has_pkg then return end
+
+  local has_path, extension_path = pcall(function()
+    return codelldb:get_install_path() .. "/extension/"
+  end)
+  if not has_path then return end
+
+  local codelldb_path = extension_path .. "adapter/codelldb"
+
+  dap.adapters.codelldb = {
+    type = "server",
+    port = "${port}",
+    executable = {
+      command = codelldb_path,
+      args = { "--port", "${port}" },
+    },
+  }
+
+  dap.configurations.rust = {
+    {
+      name = "Launch file",
+      type = "codelldb",
+      request = "launch",
+      program = function()
+        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/target/debug/", "file")
+      end,
+      cwd = "${workspaceFolder}",
+      stopOnEntry = false,
+    },
+  }
+end
+
+setup_codelldb()
+
 require("dap-vscode-js").setup {
   debugger_path = "/Users/segunoladiran/.config/vscode-js-debug/",
   adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
@@ -31,8 +73,6 @@ for _, language in ipairs { "typescript", "javascript" } do
     },
   }
 end
-
-local dap = require "dap"
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
   require("dapui").open()

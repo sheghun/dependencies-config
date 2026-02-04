@@ -42,6 +42,8 @@ return {
         "black",
         "sqlls",
         "solidity-ls",
+        "rust-analyzer",
+        "codelldb",
       },
     },
   },
@@ -60,8 +62,55 @@ return {
         "gomod",
         "gowork",
         "solidity",
+        "rust",
+        "toml",
       },
     },
+  },
+
+  -- Rust development (replaces lspconfig.rust_analyzer)
+  {
+    "mrcjkb/rustaceanvim",
+    version = "^7",
+    lazy = false,
+    ft = { "rust" },
+    init = function()
+      vim.g.rustaceanvim = {
+        server = {
+          default_settings = {
+            ["rust-analyzer"] = {
+              cargo = {
+                allFeatures = true,
+                loadOutDirsFromCheck = true,
+                buildScripts = {
+                  enable = true,
+                },
+              },
+              checkOnSave = true,
+              check = {
+                command = "clippy",
+              },
+              procMacro = {
+                enable = true,
+              },
+            },
+          },
+        },
+      }
+    end,
+  },
+
+  -- Better diagnostics display (from Rust guide)
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    cmd = { "Trouble", "TroubleToggle" },
+    keys = {
+      { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
+      { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
+      { "<leader>xs", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Symbols (Trouble)" },
+    },
+    opts = {},
   },
 
   {
@@ -290,6 +339,9 @@ return {
 
       vim.keymap.set("n", "<leader>ha", function()
         harpoon:list():add()
+      end)
+      vim.keymap.set("n", "<leader>hr", function()
+        harpoon:list():remove()
       end)
       -- vim.keymap.set("n", "<leader>hm", function()
       --   harpoon.ui:toggle_quick_menu(harpoon:list())
