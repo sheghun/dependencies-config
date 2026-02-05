@@ -1,0 +1,9 @@
+font-family = FiraCode Nerd Font
+
+shell-integration = zsh
+
+shell-integration-features = ssh-terminfo
+shell-integration-features = ssh-env
+
+term = xterm-256color
+
